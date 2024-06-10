@@ -1,0 +1,5 @@
+error: expected `:`
+ --> tests/ui/syntactically_erroneous_bounds.rs:3:12
+  |
+3 | #[bounds(T Clone)]
+  |            ^^^^^

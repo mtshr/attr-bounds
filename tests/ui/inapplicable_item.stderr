@@ -1,0 +1,7 @@
+error: The attribute may only be applied to `struct`s, `enum`s, `union`s, `trait`s, `fn`s, and `impl`s.
+ --> tests/ui/inapplicable_item.rs:3:1
+  |
+3 | #[bounds(T: Clone)]
+  | ^^^^^^^^^^^^^^^^^^^
+  |
+  = note: this error originates in the attribute macro `bounds` (in Nightly builds, run with -Z macro-backtrace for more info)
