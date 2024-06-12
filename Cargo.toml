@@ -1,9 +1,14 @@
 [package]
 name = "attr-bounds"
+description = "An attribute macro to apply bounds to items."
 version = "0.1.0"
 edition = "2021"
 authors = ["Mitsuharu Okuno"]
 license = "MIT OR Apache-2.0"
+repository = "https://github.com/mtshr/attr-bounds"
+readme = "README.md"
+categories = ["development-tools::build-utils"]
+keywords = ["attribute", "bounds"]
 
 [lib]
 proc-macro = true
