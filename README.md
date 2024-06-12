@@ -3,7 +3,7 @@ attr-bounds
 
 An attribute macro to stipulate bounds.
 
-The attribute applies bounds to `struct`s, `enum`s, `union`s, `trait`s, `fn`s, and `impl` blocks.
+The attribute applies bounds to `struct`s, `enum`s, `union`s, `trait`s, `fn`s, associated `type`s, and `impl` blocks.
 
 ```rust
 use attr_bounds::bounds;
