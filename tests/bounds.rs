@@ -37,6 +37,23 @@ fn fn_bounds() {
 }
 
 #[test]
+fn assoc_fn_bounds() {
+    trait Display {
+        #[bounds(T: std::fmt::Display)]
+        fn display<T>(var: T);
+    }
+
+    impl Display for () {
+        #[bounds(T: std::fmt::Display)]
+        fn display<T>(var: T) {
+            println!("{var}");
+        }
+    }
+
+    <()>::display(42);
+}
+
+#[test]
 fn impl_bounds() {
     use std::{fmt::Display, ops::Add};
 
@@ -82,6 +99,49 @@ fn trait_bounds() {
     }
 
     assert_eq!(42i32.square(), 42 * 42);
+}
+
+#[test]
+fn type_bounds() {
+    trait LendingIterator {
+        #[bounds(Self: 'a)]
+        type Item<'a>;
+
+        fn next(&mut self) -> Option<Self::Item<'_>>;
+    }
+
+    struct WindowsMut<'t, T> {
+        slice: &'t mut [T],
+        cursor: usize,
+        window_size: usize,
+    }
+
+    impl<'t, T> LendingIterator for WindowsMut<'t, T> {
+        #[bounds(Self: 'a)]
+        type Item<'a> = &'a mut [T];
+
+        fn next(&mut self) -> Option<Self::Item<'_>> {
+            let window = self
+                .slice
+                .get_mut(self.cursor..self.cursor + self.window_size)?;
+            self.cursor += 1;
+            Some(window)
+        }
+    }
+
+    let mut v = vec![1, 2, 3, 4, 5];
+    let mut w = WindowsMut {
+        slice: v.as_mut_slice(),
+        cursor: 0,
+        window_size: 3,
+    };
+
+    while let Some(w) = w.next() {
+        for a in w.iter_mut() {
+            *a += 1;
+        }
+    }
+    assert_eq!(v, &[2, 4, 6, 6, 6]);
 }
 
 #[test]
